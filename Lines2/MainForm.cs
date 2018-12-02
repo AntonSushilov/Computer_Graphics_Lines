@@ -79,7 +79,7 @@ namespace Lines2
 
 
 
-        //КНОПКИ...................................
+        //КНОПКИ................................
 
 
         private void buttonClear(object sender, EventArgs e)
