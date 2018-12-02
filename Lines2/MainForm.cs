@@ -8,146 +8,139 @@ namespace Lines2
     public partial class MainForm : Form
     {
         public static List<myPoint> points = new List<myPoint>();
-        public bool check = true;
-        public bool ch = true;
-        public bool check2 = false;
+        public myPoint a, b, c, d;
+        public bool checkPoints = true;
+
+        public static double x, y;
 
         public MainForm()
         {
             InitializeComponent();
         }
-
-        public myPoint a, b, c, d;
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
-
-            for (int i = 0; i < points.Count; i++)
-            {
-                e.Graphics.DrawEllipse(Pens.Red, points[i].Point.X - 4, points[i].Point.Y - 4, 8, 8);
-
-            }
-            if (points.Count == 4)
-            {
-                if (ch || check2)
-                {
-
-                    ch = false;
-                    e.Graphics.DrawLine(Pens.Black, points[0].Point.X, points[0].Point.Y, points[1].Point.X, points[1].Point.Y);
-                    e.Graphics.DrawLine(Pens.Black, points[2].Point.X, points[2].Point.Y, points[3].Point.X, points[3].Point.Y);
-                    a = points[0];
-                    b = points[1];
-                    c = points[2];
-                    d = points[3];
-                    check2 = false;
-                    Logic.FindPixel(a, b, c, d, e);
-
-                }
-            }
-        }
-
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (check)
+            if (checkPoints)
             {
                 myPoint p = new myPoint();
                 p.Point.X = e.X;
                 p.Point.Y = e.Y;
                 points.Add(p);
-                this.Invalidate();
                 AddValue();
+                Invalidate();
             }
         }
-
-
-
         public void AddValue()
         {
 
             if (points.Count < 4)
             {
-                check = true;
+                checkPoints = true;
             }
             else
             {
-                check = false;
+                checkPoints = false;
             }
         }
 
-        private void buttonClear(object sender, EventArgs e)
+        private void MainForm_Paint(object sender, PaintEventArgs e)
         {
+            for (int i = 0; i < points.Count; i++)
+            {
+                DrawLogic.DrawPoint(points[i], e);
+            }
 
-            ch = true;
-            check = true;
-            points.Clear();
-            this.Invalidate();
 
+            if (points.Count == 4)
+            {
+                a = points[0];
+                b = points[1];
+                c = points[2];
+                d = points[3];
+                labelPointA.Text = "A: " + "(" + a.Point.X + "; " + a.Point.Y + ")";
+                labelPointB.Text = "B: " + "(" + b.Point.X + "; " + b.Point.Y + ")";
+                labelPointC.Text = "C: " + "(" + c.Point.X + "; " + c.Point.Y + ")";
+                labelPointD.Text = "D: " + "(" + d.Point.X + "; " + d.Point.Y + ")";
+
+
+                e.Graphics.DrawLine(Pens.Black, a.Point.X, a.Point.Y, b.Point.X, b.Point.Y);
+                e.Graphics.DrawLine(Pens.Black, c.Point.X, c.Point.Y, d.Point.X, d.Point.Y);
+
+                string str = "";
+                //DrawLogic.FindPixel(a, b, c, d, e, ref str);
+                DrawLogic.FindPixel(a, b, c, d, e, ref x, ref y, ref str);
+                labelPointO.Text = "O: " + str;
+            }
         }
 
+
+
+
+
+
+
+
+        //КНОПКИ...................................
+
+
+        private void buttonClear(object sender, EventArgs e)
+        {
+            checkPoints = true;
+            points.Clear();
+            this.Invalidate();
+        }
         private void buttonUp_Click(object sender, EventArgs e)
         {
             this.Invalidate();
-
             int k = (int)numericUpDownMove.Value;
-            a.Point.Y = a.Point.Y - k;
-            b.Point.Y = b.Point.Y - k;
-            c.Point.Y = c.Point.Y - k;
-            d.Point.Y = d.Point.Y - k;
-            check2 = true;
+            Moving.MovingUp(ref a, k);
+            Moving.MovingUp(ref b, k);
+            Moving.MovingUp(ref c, k);
+            Moving.MovingUp(ref d, k);
         }
-
-
-
         private void buttonRigth_Click(object sender, EventArgs e)
         {
             this.Invalidate();
             int k = (int)numericUpDownMove.Value;
-            a.Point.X = a.Point.X + k;
-            b.Point.X = b.Point.X + k;
-            c.Point.X = c.Point.X + k;
-            d.Point.X = d.Point.X + k;
-            check2 = true;
+            Moving.MovingRight(ref a, k);
+            Moving.MovingRight(ref b, k);
+            Moving.MovingRight(ref c, k);
+            Moving.MovingRight(ref d, k);
         }
-
         private void buttonDown_Click(object sender, EventArgs e)
         {
             this.Invalidate();
             int k = (int)numericUpDownMove.Value;
-            a.Point.Y = a.Point.Y + k;
-            b.Point.Y = b.Point.Y + k;
-            c.Point.Y = c.Point.Y + k;
-            d.Point.Y = d.Point.Y + k;
-            check2 = true;
+            Moving.MovingDown(ref a, k);
+            Moving.MovingDown(ref b, k);
+            Moving.MovingDown(ref c, k);
+            Moving.MovingDown(ref d, k);
         }
-
         private void buttonLeft_Click(object sender, EventArgs e)
         {
             this.Invalidate();
             int k = (int)numericUpDownMove.Value;
-            a.Point.X = a.Point.X - k;
-            b.Point.X = b.Point.X - k;
-            c.Point.X = c.Point.X - k;
-            d.Point.X = d.Point.X - k;
-            check2 = true;
+            Moving.MovingLeft(ref a, k);
+            Moving.MovingLeft(ref b, k);
+            Moving.MovingLeft(ref c, k);
+            Moving.MovingLeft(ref d, k);
         }
-
 
 
         private void buttonPlus_Click(object sender, EventArgs e)
         {
             this.Invalidate();
             double k = (double)numericUpDownScope.Value;
+            Scope.ScopeLinePlus(ref a, ref b, x, y, k);
+            Scope.ScopeLinePlus(ref c, ref d, x, y, k);
 
-            check2 = true;
 
         }
-
         private void buttonMinus_Click(object sender, EventArgs e)
         {
             this.Invalidate();
             double k = (double)numericUpDownScope.Value;
-
-            check2 = true;
+            Scope.ScopeLineMinus(ref a, ref b, x, y, k);
+            Scope.ScopeLineMinus(ref c, ref d, x, y, k);
         }
 
     }

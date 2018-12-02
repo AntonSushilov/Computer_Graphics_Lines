@@ -2,9 +2,10 @@
 using System.Windows.Forms;
 namespace Lines2
 {
-    class Logic
+    class DrawLogic
     {
-        public static void FindPixel(myPoint a, myPoint b, myPoint c, myPoint d, PaintEventArgs e)
+
+        public static void FindPixel(myPoint a, myPoint b, myPoint c, myPoint d, PaintEventArgs e, ref double x, ref double y, ref string str)
         {
             int ax = a.Point.X;
             int ay = a.Point.Y;
@@ -24,7 +25,7 @@ namespace Lines2
                 cy = dy;
                 dy = p1;
             }
-            float x, y;
+
             float n = (ay - by) * (dx - cx) - (cy - dy) * (bx - ax);
             float m = -((ax * by - bx * ay) * (dx - cx) - (cx * dy - dx * cy) * (bx - ax));
             x = m / n;
@@ -32,25 +33,22 @@ namespace Lines2
 
             if (n == 0)
             {
-                MessageBox.Show("Нет точки пересечения");
+                str = "Нет точки пересечения";
             }
             else
             {
                 if (((ax <= x) && (bx >= x) && (cx <= x) && (dx >= x)) || ((ay <= y) && (by >= y) && (cy <= y) && (dy >= y)) || ((ax >= x) && (bx <= x) && (cx >= x) && (dx <= x)) || ((ay >= y) && (by <= y) && (cy >= y) && (dy <= y)))
                 {
-                    e.Graphics.DrawEllipse(Pens.Red, x, y, 1, 1);
-                    string str = "Кооординаты точек: 1)A(" + ax + ";" + ay + ")" + " 2)B(" + bx + "; " + by + ")" + " 3)C(" + cx + "; " + cy + ")" + " 4)D(" + dx + "; " + dy + ")" + " 5)Точка пересечения(" + (int)x + "; " + (int)y + ")";
-                    MessageBox.Show("Координаты точек: " + str,
-                        "Сообщение",
-                        MessageBoxButtons.OK);
+                    e.Graphics.DrawEllipse(Pens.Red, (int)x, (int)y, 1, 1);
+                    str = "(" + (int)x + "; " + (int)y + ")";
                 }
                 else
-                    MessageBox.Show("Нет точки пересечения");
+                    str = "Нет точки пересечения";
             }
         }
-        public static void info()
+        public static void DrawPoint(myPoint point, PaintEventArgs e)
         {
-
+            e.Graphics.DrawEllipse(Pens.Red, point.Point.X - 4, point.Point.Y - 4, 8, 8);
         }
 
     }

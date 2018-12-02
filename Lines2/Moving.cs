@@ -2,13 +2,22 @@
 {
     class Moving
     {
-        public static void MovingUp(myPoint a, myPoint b, myPoint c, myPoint d, int k)
+        public static void MovingUp(ref myPoint point, int k)
         {
-            a.Point.X = a.Point.X - k;
-            b.Point.X = b.Point.X - k;
-            c.Point.X = c.Point.X - k;
-            d.Point.X = d.Point.X - k;
+            point.Point.Y = point.Point.Y - k;
+        }
+        public static void MovingDown(ref myPoint point, int k)
+        {
+            point.Point.Y = point.Point.Y + k;
 
+        }
+        public static void MovingRight(ref myPoint point, int k)
+        {
+            point.Point.X = point.Point.X + k;
+        }
+        public static void MovingLeft(ref myPoint point, int k)
+        {
+            point.Point.X = point.Point.X - k;
         }
 
     }
