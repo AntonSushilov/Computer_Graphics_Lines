@@ -38,7 +38,6 @@
             this.buttonMinus = new System.Windows.Forms.Button();
             this.numericUpDownScope = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonInfo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMove)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownScope)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -159,7 +158,6 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.buttonInfo);
             this.groupBox1.Controls.Add(this.buttonDown);
             this.groupBox1.Controls.Add(this.numericUpDownScope);
             this.groupBox1.Controls.Add(this.button1);
@@ -174,16 +172,6 @@
             this.groupBox1.Size = new System.Drawing.Size(289, 312);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
-            // 
-            // buttonInfo
-            // 
-            this.buttonInfo.Location = new System.Drawing.Point(6, 283);
-            this.buttonInfo.Name = "buttonInfo";
-            this.buttonInfo.Size = new System.Drawing.Size(75, 23);
-            this.buttonInfo.TabIndex = 10;
-            this.buttonInfo.Text = "Information";
-            this.buttonInfo.UseVisualStyleBackColor = true;
-            this.buttonInfo.Click += new System.EventHandler(this.buttonInfo_Click);
             // 
             // MainForm
             // 
@@ -214,7 +202,6 @@
         private System.Windows.Forms.Button buttonMinus;
         private System.Windows.Forms.NumericUpDown numericUpDownScope;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button buttonInfo;
     }
 }
 

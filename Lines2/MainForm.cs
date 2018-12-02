@@ -120,11 +120,6 @@ namespace Lines2
             check2 = true;
         }
 
-        private void buttonInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonLeft_Click(object sender, EventArgs e)
         {
             this.Invalidate();
@@ -142,14 +137,7 @@ namespace Lines2
         {
             this.Invalidate();
             double k = (double)numericUpDownScope.Value;
-            a.Point.X = (int)(a.Point.X * k);
-            a.Point.Y = (int)(a.Point.Y / k);
-            b.Point.X = (int)(b.Point.X / k);
-            b.Point.Y = (int)(b.Point.Y * k);
-            c.Point.X = (int)(c.Point.X * k);
-            c.Point.Y = (int)(c.Point.Y / k);
-            d.Point.X = (int)(d.Point.X / k);
-            d.Point.Y = (int)(d.Point.Y * k);
+
             check2 = true;
 
         }
